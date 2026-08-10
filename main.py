@@ -741,10 +741,12 @@ class BytenutRenewal:
                 try:
                     # --- 登录 ---
                     sb.uc_open_with_reconnect(URL_LOGIN_PANEL, reconnect_time=5)
-                    sb.wait_for_element_visible(
-                        'input[placeholder="Username"]', timeout=25)
-                    sb.type('input[placeholder="Username"]', user)
-                    sb.type('input[placeholder="Password"]', pwd)
+                    username_box = '(//label[contains(.,"Username")]/following::input[1])[1]'
+                    password_box = 'input[type="password"]'
+
+                    sb.wait_for_element_visible(username_box, timeout=25)
+                    sb.type(username_box, user)
+                    sb.type(password_box, pwd)
                     sb.click('//button[contains(., "Sign In")]')
                     time.sleep(5)
                     if "/auth/login" in sb.get_current_url():
